@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kantraformation-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kantraformation-back
+  template:
+    metadata:
+      labels:
+        app: kantraformation-back
+    spec:
+      imagePullSecrets:
+        - name:  github-packages-pull-secret
+      restartPolicy: Always
+      containers:
+        - name: kantraformation-back
+          image: rakizouari/9antra_backend
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:mysql://mysql:3306/kantraformationdb?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true"
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: root-password
+            - name: FILES_FOLDER
+              value: /shared/UploadedFiles
+          ports:
+            - containerPort: 8094
+          resources:
+            limits:
+              cpu: 100m
+              memory: 1Gi
+            requests:
+              cpu: 50m
+              memory: 512Mi
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /shared/UploadedFiles
+      volumes:
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: kantraformation-uploadedfiles-pvc

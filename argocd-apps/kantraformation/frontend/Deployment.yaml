@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kantraformation
+  labels:
+    app: kantraformation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kantraformation
+  template:
+    metadata:
+      labels:
+        app: kantraformation
+    spec:
+      containers:
+        - image: rakizouari/9antra_frontend
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            successThreshold: 1
+            tcpSocket:
+              port: 80
+            timeoutSeconds: 5
+          name: kantraformation
+          ports:
+            - containerPort: 80
+              name: httpport
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 100m
+              memory: 700Mi
+            requests:
+              cpu: 50m
+              memory: 700Mi
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /usr/share/nginx/html/assets/
+              readOnly: true
+      imagePullSecrets:
+        - name:  github-packages-pull-secret
+      restartPolicy: Always
+      volumes:
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: kantraformation-uploadedfiles-pvc

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.1.0
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql/
+          env:
+            - name: MYSQL_DATABASE
+              value: kantraformationdb
+            - name: MYSQL_ALLOW_EMPTY_PASSWORD
+              value: "no"
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: root-password
+          ports:
+            - containerPort: 3306
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 256Mi
+      volumes:
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: kantraformation-db-pvc
