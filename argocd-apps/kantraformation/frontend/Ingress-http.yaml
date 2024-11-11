@@ -9,7 +9,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: kantraformation-redirectscheme@kubernetescrd
 spec:
   rules:
-  - host: "kantraformation.k3s.9antra.tn"
+  - host: "kantraformation.9antra.tn"
     http:
       paths:
       - backend:

@@ -38,5 +38,5 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - "kantraformation.k3s.9antra.tn"
+    - "kantraformation.9antra.tn"
     secretName: kantraformation-k3s-tls
