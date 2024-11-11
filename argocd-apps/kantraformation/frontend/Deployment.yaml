@@ -15,7 +15,7 @@ spec:
         app: kantraformation
     spec:
       containers:
-        - image: rakizouari/9antra_frontend
+        - image: rakizouari/9antra_frontend:latest
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
