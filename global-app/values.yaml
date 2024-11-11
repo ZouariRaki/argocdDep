@@ -1,6 +1,6 @@
 spec:
   destination:
-    server: https://kubernetes.default.svc
+    server: https://kubernetes.defaultaa.svcccc
   source:
     repoURL: https://github.com/ZouariRaki/argocdDep.git
     targetRevision: HEAD
