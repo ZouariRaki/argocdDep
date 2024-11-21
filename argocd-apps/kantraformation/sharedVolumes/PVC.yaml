@@ -8,3 +8,7 @@ spec:
   resources:
     requests:
       storage: 2Gi
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-path  # Doit correspondre au PVC s'il utilise la même classe
+  hostPath:
+    path: /mnt/data/kantraformation-uploadedfiles
