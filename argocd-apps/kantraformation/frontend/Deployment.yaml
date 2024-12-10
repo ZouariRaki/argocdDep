@@ -15,29 +15,15 @@ spec:
         app: kantraformation
     spec:
       containers:
-        - image: rakizouari/9antra_frontend:latest
+        - name: kantraformation
+          image: rakizouari/kantrafront:latest
           imagePullPolicy: IfNotPresent
-          livenessProbe:
-            failureThreshold: 3
-            initialDelaySeconds: 30
-            periodSeconds: 30
-            successThreshold: 1
-            tcpSocket:
-              port: 80
-            timeoutSeconds: 5
-          name: kantraformation
           ports:
             - containerPort: 80
               name: httpport
-          readinessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 5
+          env:
+            - name: BACKEND_URL
+              value: "http://kantraformation-back:8094" 
           resources:
             limits:
               cpu: 100m
@@ -49,8 +35,25 @@ spec:
             - name: shared-volume
               mountPath: /usr/share/nginx/html/assets/
               readOnly: true
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
       imagePullSecrets:
-        - name:  github-packages-pull-secret
+        - name: github-packages-pull-secret
       restartPolicy: Always
       volumes:
         - name: shared-volume
