@@ -21,14 +21,18 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:mysql://mysql:3306/kantraformationdb?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true"
-            - name: SPRING_DATASOURCE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: root-password
+              value: "jdbc:mysql://mysql:3306/kantraformationdb?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true"
+            - name: spring.datasource.username
+              value: root
+            - name: spring.datasource.password
+              value: root
+            - name: spring.jpa.hibernate.ddl-auto
+              value: update
             - name: FILES_FOLDER
               value: /shared/UploadedFiles
+          envFrom:
+          - configMapRef:
+              name: spring-boot-config
           ports:
             - containerPort: 8094
           resources:
@@ -38,10 +42,21 @@ spec:
             requests:
               cpu: 50m
               memory: 512Mi
-          volumeMounts:
-            - name: shared-volume
-              mountPath: /shared/UploadedFiles
-      volumes:
-        - name: shared-volume
-          persistentVolumeClaim:
-            claimName: kantraformation-uploadedfiles-pvc
+      #     volumeMounts:
+      #       - name: shared-volume
+      #         mountPath: /shared/UploadedFiles
+      # volumes:
+      #   - name: shared-volume
+      #     persistentVolumeClaim:
+      #       claimName: kantraformation-uploadedfiles-pvc
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-boot-config
+data:
+  application.properties: |
+    spring.datasource.url=jdbc:mysql://mysql:3306/kantraformationdb?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    spring.datasource.username=root
+    spring.datasource.password=root
+    spring.jpa.hibernate.ddl-auto=update
