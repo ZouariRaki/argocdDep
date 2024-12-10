@@ -22,12 +22,7 @@ spec:
             - name: MYSQL_DATABASE
               value: kantraformationdb
             - name: MYSQL_ALLOW_EMPTY_PASSWORD
-              value: "no"
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: root-password
+              value: "yes"
           ports:
             - containerPort: 3306
           resources:
