@@ -2,13 +2,11 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: kantraformation-uploadedfiles-pvc
+  namespace: default
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-path  # Doit correspondre au PVC s'il utilise la même classe
-  hostPath:
-    path: /mnt/data/kantraformation-uploadedfiles
+      storage: 1Gi
+  storageClassName: local-path
