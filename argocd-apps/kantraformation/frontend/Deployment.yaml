@@ -1,61 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kantraformation
-  labels:
-    app: kantraformation
+  name: kantraformation-front
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kantraformation
+      app: kantraformation-front
   template:
     metadata:
       labels:
-        app: kantraformation
+        app: kantraformation-front
     spec:
       containers:
-        - name: kantraformation
-          image: rakizouari/kantrafront:latest
-          imagePullPolicy: IfNotPresent
+        - name: kantraformation-front
+          image: rakizouari/kantrafrontend:latest  # Spécifiez une version spécifique si possible
           ports:
             - containerPort: 80
-              name: httpport
-          env:
-            - name: BACKEND_URL
-              value: "http://kantraformation-back:8094" 
           resources:
             limits:
-              cpu: 100m
-              memory: 700Mi
+              cpu: 200m
+              memory: 512Mi
             requests:
-              cpu: 50m
-              memory: 700Mi
-          volumeMounts:
-            - name: shared-volume
-              mountPath: /usr/share/nginx/html/assets/
-              readOnly: true
+              cpu: 100m
+              memory: 256Mi
           livenessProbe:
-            tcpSocket:
+            httpGet:
+              path: /
               port: 80
-            initialDelaySeconds: 30
-            periodSeconds: 30
-            timeoutSeconds: 5
-            successThreshold: 1
-            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /
               port: 80
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 5
-            successThreshold: 1
-            failureThreshold: 3
-      imagePullSecrets:
-        - name: github-packages-pull-secret
-      restartPolicy: Always
-      volumes:
-        - name: shared-volume
-          persistentVolumeClaim:
-            claimName: kantraformation-uploadedfiles-pvc
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          env:
+            - name: BACKEND_URL
+              value: "http://20.151.71.45:8094"
