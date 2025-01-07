@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kantraformation-back
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -21,7 +22,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:mysql://mysql:3306/kantraformationdb?useUnicode=true&characterEncoding=utf12&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true"
+              value: "jdbc:mysql://mysql:3306/kantraformationdb?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true"
             - name: spring.datasource.username
               value: root
             - name: spring.datasource.password
@@ -34,7 +35,7 @@ spec:
           - configMapRef:
               name: spring-boot-config
           ports:
-            - containerPort: 120124
+            - containerPort: 8094
           resources:
             limits:
               cpu: 120m
@@ -56,7 +57,7 @@ metadata:
   name: spring-boot-config
 data:
   application.properties: |
-    spring.datasource.url=jdbc:mysql://mysql:3306/kantraformationdb?useUnicode=true&characterEncoding=utf12&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    spring.datasource.url=jdbc:mysql://mysql:3306/kantraformationdb?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
     spring.datasource.username=root
     spring.datasource.password=root
     spring.jpa.hibernate.ddl-auto=update
