@@ -39,4 +39,4 @@ spec:
             periodSeconds: 5
           env:
             - name: BACKEND_URL
-              value: "http://20.151.71.45:8094"
+              value: "http://4.172.224.64:8094"
