@@ -9,4 +9,6 @@ spec:
   resources:
     requests:
       storage: 2Gi
-  volumeName: kantraformation-uploadfile-pv
+  storageClassName: manual
+  hostPath:
+    path: "/mnt/data"
