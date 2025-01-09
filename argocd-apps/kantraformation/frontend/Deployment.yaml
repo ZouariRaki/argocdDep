@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kantraformation-front
-  namespace: default
+  namespace: kantraformation
 spec:
   replicas: 1
   selector:
