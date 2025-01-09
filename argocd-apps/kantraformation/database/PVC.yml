@@ -10,5 +10,3 @@ spec:
     requests:
       storage: 2Gi
   storageClassName: manual
-  hostPath:
-    path: "/mnt/data"
