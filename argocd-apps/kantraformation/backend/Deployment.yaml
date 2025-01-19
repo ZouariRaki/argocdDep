@@ -18,7 +18,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: kantraformation-back
-          image: rakizouari/kantrabackend:1.1.18
+          image: rakizouari/9antra_backend:1.0.0
           imagePullPolicy: IfNotPresent
           env:
             - name: SPRING_DATASOURCE_URL
