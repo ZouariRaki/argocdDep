@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: kantraformation-front
-          image: rakizouari/kantraf:1.0.0  # Spécifiez une version spécifique si possible
+          image: rakizouari/kantrafrontend:latest
           ports:
             - containerPort: 80
           resources:
