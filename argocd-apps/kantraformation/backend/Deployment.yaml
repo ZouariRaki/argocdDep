@@ -43,6 +43,13 @@ spec:
             requests:
               cpu: 50m
               memory: 512Mi
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /shared/UploadedFiles
+      volumes:
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: kantraformation-uploadedfiles-pvc
 ---
 apiVersion: v1
 kind: ConfigMap
