@@ -32,8 +32,8 @@ spec:
             - name: FILES_FOLDER
               value: /shared/UploadedFiles
           envFrom:
-          - configMapRef:
-              name: spring-boot-config
+            - configMapRef:
+                name: spring-boot-config
           ports:
             - containerPort: 8094
           resources:
@@ -43,9 +43,9 @@ spec:
             requests:
               cpu: 50m
               memory: 512Mi
-           volumeMounts:
-             - name: shared-volume
-               mountPath: /shared/UploadedFiles
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /shared/UploadedFiles
        volumes:
          - name: shared-volume
            persistentVolumeClaim:
