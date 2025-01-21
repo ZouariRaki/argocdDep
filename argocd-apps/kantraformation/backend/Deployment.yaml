@@ -32,24 +32,17 @@ spec:
             - name: FILES_FOLDER
               value: /shared/UploadedFiles
           envFrom:
-            - configMapRef:
-                name: spring-boot-config
+          - configMapRef:
+              name: spring-boot-config
           ports:
             - containerPort: 8094
           resources:
             limits:
-              cpu: 120m
+              cpu: 100m
               memory: 1Gi
             requests:
               cpu: 50m
               memory: 512Mi
-          volumeMounts:
-            - name: shared-volume
-              mountPath: /shared/UploadedFiles
-       volumes:
-         - name: shared-volume
-           persistentVolumeClaim:
-             claimName: kantraformation-uploadedfiles-pvc
 ---
 apiVersion: v1
 kind: ConfigMap
