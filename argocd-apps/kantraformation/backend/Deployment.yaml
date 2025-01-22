@@ -14,7 +14,7 @@ spec:
         app: kantraformation-back
     spec:
       imagePullSecrets:
-        - name:  github-packages-pull-secret
+        - name:  dockerhub-pull-secret
       restartPolicy: Always
       containers:
         - name: kantraformation-back
