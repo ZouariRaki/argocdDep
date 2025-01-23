@@ -40,3 +40,10 @@ spec:
           env:
             - name: BACKEND_URL
               value: "http://20.63.75.119:8094"
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /usr/share/nginx/html/assets
+      volumes:
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: kantraformation-uploadedfiles-pvc
