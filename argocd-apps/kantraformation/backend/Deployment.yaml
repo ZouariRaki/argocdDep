@@ -30,7 +30,7 @@ spec:
             - name: spring.jpa.hibernate.ddl-auto
               value: update
             - name: FILES_FOLDER
-              value: /shared/UploadedFiles
+              value: /shared/assets
           envFrom:
           - configMapRef:
               name: spring-boot-config
@@ -45,7 +45,7 @@ spec:
               memory: 512Mi
           volumeMounts:
             - name: shared-volume
-              mountPath: /shared/UploadedFiles
+              mountPath: /shared/assets
       volumes:
         - name: shared-volume
           persistentVolumeClaim:
