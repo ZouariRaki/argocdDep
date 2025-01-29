@@ -30,7 +30,7 @@ spec:
               mountPath: /usr/share/nginx/html/assets/
               readOnly: true
       imagePullSecrets:
-        - name:  github-packages-pull-secret
+        - name:  dockerhub-pull-secret
       restartPolicy: Always
       volumes:
         - name: shared-volume
