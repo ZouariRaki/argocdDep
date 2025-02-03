@@ -28,7 +28,7 @@ spec:
           volumeMounts:
             - name: shared-volume
               mountPath: /usr/share/nginx/html/assets/
-              readOnly: true
+              readOnly: false
       imagePullSecrets:
         - name:  dockerhub-pull-secret
       restartPolicy: Always
