@@ -25,7 +25,6 @@ spec:
             requests:
               cpu: 100m
               memory: 256Mi
-          restartPolicy: Always
           livenessProbe:
             httpGet:
               path: /
