@@ -27,7 +27,7 @@ spec:
               memory: 256Mi
           volumeMounts:
             - name: shared-volume
-              mountPath: /usr/share/nginx/html/assets/
+              mountPath: /usr/share/nginx/html
               readOnly: false
       imagePullSecrets:
         - name:  dockerhub-pull-secret
