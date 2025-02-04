@@ -25,10 +25,9 @@ spec:
             requests:
               cpu: 100m
               memory: 256Mi
-
-      imagePullSecrets:
-        - name:  dockerhub-pull-secret
-      restartPolicy: Always
+          imagePullSecrets:
+            - name: dockerhub-pull-secret
+          restartPolicy: Always
           livenessProbe:
             httpGet:
               path: /
@@ -44,4 +43,3 @@ spec:
           env:
             - name: BACKEND_URL
               value: "http://20.63.75.119:8094"
-
